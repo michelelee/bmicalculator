@@ -2,7 +2,7 @@
 # convert height from inches to meters
 # calculation is weight in kg divided by height in meters
 # % body fat = 86.010 x log10(abdomen - neck) - 70.041 x log10(height) + 36.76
-# % body fat = 163.205 x log10(waist + hip - neck) - 97.684 x log10(height) - 78.387 
+# % body fat = 163.205 x log10(waist + hip - neck) - 97.684 x log10(height) - 78.387
 
 import math
 
@@ -17,8 +17,8 @@ def bmi(height, weight):
     return round(weight_kg / height_meters**2, 1)
 
 
-def body_fat(gender, height, abdomen, neck, hip):
-    if gender == 'm':
+def body_fat(height, abdomen, neck, hip=None):
+    if hip is None:
         return round(86.010 * math.log10(abdomen - neck) - 70.041 * math.log10(height) + 36.76, 1)
     else:
         return round((163.205 * math.log10(abdomen + hip - neck)) - (97.684 * math.log10(height)) - 78.387, 1)
@@ -32,8 +32,8 @@ def test_bmi():
 
 
 def test_body_fat():
-    assert body_fat('m', 70, 40, 20, 40) == 19.4
-    assert body_fat('f', 70, 40, 20, 40) == 31.6
+    assert body_fat(70, 40, 20) == 19.4
+    assert body_fat(70, 40, 20, 40) == 31.6
 
     print('Body Fat Test Passed')
 
