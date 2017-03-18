@@ -5,6 +5,7 @@
 # % body fat = 163.205 x log10(waist + hip - neck) - 97.684 x log10(height) - 78.387
 
 import math
+import argparse
 
 
 def bmi(height, weight):
@@ -24,13 +25,6 @@ def body_fat(height, abdomen, neck, hip=None):
         return round((163.205 * math.log10(abdomen + hip - neck)) - (97.684 * math.log10(height)) - 78.387, 1)
 
 
-def test_bmi():
-    assert bmi(63, 125) == 22.7
-    assert bmi(0, 125) == 0
-
-    print('BMI Test Passed')
-
-
 def test_body_fat():
     assert body_fat(70, 40, 20) == 19.4
     assert body_fat(70, 40, 20, 40) == 31.6
@@ -39,5 +33,4 @@ def test_body_fat():
 
 
 if __name__ == '__main__':
-    test_bmi()
-    test_body_fat()
+    parser = argparse.ArgumentParser()
