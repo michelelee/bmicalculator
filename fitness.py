@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # convert weight in pounds to kg (divide by 2.2)
 # convert height from inches to meters
 # calculation is weight in kg divided by height in meters
@@ -6,6 +7,7 @@
 
 import math
 import argparse
+import sys
 
 
 def bmi(height, weight):
@@ -25,12 +27,24 @@ def body_fat(height, abdomen, neck, hip=None):
         return round((163.205 * math.log10(abdomen + hip - neck)) - (97.684 * math.log10(height)) - 78.387, 1)
 
 
-def test_body_fat():
-    assert body_fat(70, 40, 20) == 19.4
-    assert body_fat(70, 40, 20, 40) == 31.6
-
-    print('Body Fat Test Passed')
-
-
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser("Fitness Calculator")
+    parser.add_argument("--type", "-t",
+        choices=['bmi', 'body_fat'],
+        help="type of fitness calculation",
+        required=True)
+    parser.add_argument("--height", "-hgt",
+        type=float,
+        help="your height in inches")
+    parser.add_argument("--weight", "-wgt",
+        type=float,
+        help="your weight in lbs")
+    args = parser.parse_args()
+    if args.type == "bmi":
+        if not hasattr(args, "height"):
+            print("height is required for bmi")
+            sys.exit(1)
+        if not hasattr(args, "weight"):
+            print("weight is required for bmi")
+            sys.exit(1)
+        print(bmi(args.height, args.weight))
