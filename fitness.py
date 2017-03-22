@@ -39,6 +39,15 @@ if __name__ == '__main__':
     parser.add_argument("--weight", "-wgt",
         type=float,
         help="your weight in lbs")
+    parser.add_argument("--abdomen", "-abd",
+        type=float,
+        help="your abdomen circumference in inches")
+    parser.add_argument("--neck", "-nk",
+        type=float,
+        help="your neck circumference in inches")
+    parser.add_argument("--hip",
+        type=float,
+        help="your hip circumference in inches")
     args = parser.parse_args()
     if args.type == "bmi":
         if not hasattr(args, "height"):
@@ -48,3 +57,22 @@ if __name__ == '__main__':
             print("weight is required for bmi")
             sys.exit(1)
         print(bmi(args.height, args.weight))
+    if args.type == "body_fat":
+        if not hasattr(args, "height"):
+            print("height is required for body_fat")
+            sys.exit(1)
+        if not hasattr(args, "abdomen"):
+            print("abdomen is required for bmi")
+            sys.exit(1)()
+        if not hasattr(args, "neck"):
+            print("neck is required for bmi")
+            sys.exit(1)
+        import ipdb; ipdb.set_trace()
+        if hasattr(args, "hip") and args.hip != None:
+            print(body_fat(args.height, args.abdomen, args.neck, args.hip))
+        else:
+            print(body_fat(args.height, args.abdomen, args.neck))
+
+
+
+
